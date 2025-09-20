@@ -1,0 +1,8 @@
+# Dependency directory
+node_modules
+
+# Database file
+board.db
+
+# Environment variables
+.env

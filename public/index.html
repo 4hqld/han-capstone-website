@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>macOS Style Memo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="menu">
+            <img src="./images/Apple_logo.svg.webp" alt="Apple Logo" class="apple-logo">
+            <span class="menu-item bold">Memo</span>
+            <span class="menu-item">파일</span>
+            <span class="menu-item">편집</span>
+            <span class="menu-item">보기</span>
+            <span class="menu-item">이동</span>
+            <span class="menu-item">윈도우</span>
+            <span class="menu-item">도움말</span>
+        </div>
+        <div class="status">
+            <span class="time" id="current-time"></span>
+        </div>
+    </header>
+
+    <div id="notes-container"></div>
+    <div class="divider"></div>
+    <div class="input-container">
+        <form id="memo-form">
+            <input type="text" id="memo-input" placeholder="메모를 입력하세요..." required>
+            <button type="submit">전송</button>
+        </form>
+    </div>
+
+    <footer class="dock">
+        <div class="dock-item" title="Finder">🏞️</div>
+        <div class="dock-item" title="Memo">📝</div>
+        <div class="dock-item" title="Messages">💬</div>
+        <div class="dock-item" title="Music">🎵</div>
+        <div class="dock-item" title="Settings">⚙️</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
