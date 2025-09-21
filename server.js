@@ -40,6 +40,22 @@ app.get('/api/notes', (req, res) => {
     });
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+    const { id } = req.params; // URL 경로에서 메모의 ID를 가져옵니다.
+
+    db.run(`DELETE FROM notes WHERE id = ?`, id, function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        // this.changes를 통해 실제로 행이 삭제되었는지 확인
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Note not found' });
+        }
+        res.status(200).json({ message: 'Note deleted successfully' });
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
