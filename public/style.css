@@ -19,25 +19,16 @@ body, html {
 #notes-container {
     position: absolute;
     top: 28px;
-    left: 0;
+    left: 120px;
     right: 0;
     bottom: 30vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: flex-start;
     padding: 60px 20px;
     gap: 25px;
     overflow-y: auto;
-}
-
-.divider {
-    position: absolute;
-    top: 70%; 
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* ================================================= */

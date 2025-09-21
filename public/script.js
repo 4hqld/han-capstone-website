@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newNote) {
                 createNoteElement(newNote, true);
 
-                if (notesContainer.children.length > 10) {
+                if (notesContainer.children.length > 48) {
                     notesContainer.lastChild.remove();
                 }
             }
@@ -79,16 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. 빨간 점에 클릭 이벤트 리스너를 추가합니다.
     deleteButton.addEventListener('click', () => {
-        // 3. 사용자에게 정말 삭제할 것인지 확인하는 팝업을 띄웁니다.
-        const isConfirmed = confirm('이 메모를 정말 삭제하시겠습니까?');
-
-        // 4. 사용자가 '확인'을 눌렀을 경우에만 삭제를 진행합니다.
-        if (isConfirmed) {
             deleteNote(note.id, noteWindow);
-        }
     });
 
-    notesContainer.prepend(noteWindow);
+    notesContainer.appendChild(noteWindow);
 }
 });
 

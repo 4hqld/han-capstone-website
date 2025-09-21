@@ -32,7 +32,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-    db.all("SELECT * FROM notes ORDER BY id DESC LIMIT 10", [], (err, rows) => {
+    db.all("SELECT * FROM notes ORDER BY id DESC", [], (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
