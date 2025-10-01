@@ -15,24 +15,8 @@ body, html {
     background-attachment: fixed;
     overflow: hidden; 
 }
-/*
-#notes-container {
-    position: absolute;
-    top: 28px;
-    left: 120px;
-    right: 0;
-    bottom: 30vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-    padding: 60px 20px;
-    gap: 25px;
-    overflow-y: auto;
-}*/
 
 /* grid 방식 */
-
 #notes-container {
     position: absolute;
     top: 28px;
@@ -46,18 +30,18 @@ body, html {
     padding: 60px 20px;
     gap: 25px;
     overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 #notes-container::-webkit-scrollbar {
     display: none;
 }
 
-
 /* ================================================= */
 /* ===== 2. 메모 윈도우 컴포넌트 (Component) ===== */
 /* ================================================= */
 .note-window {
-    /*width: 250px;*/
     border-radius: 12px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -85,7 +69,7 @@ body, html {
     border-radius: 50%;
     margin-left: 8px;
 }
-.dot.red { background-color: #ff5f56; }
+.dot.red { background-color: #ff5f56; cursor: pointer; }
 .dot.yellow { background-color: #ffbd2e; }
 .dot.green { background-color: #27c93f; }
 
@@ -125,19 +109,6 @@ body, html {
     font-size: 16px;
     width: 550px;
 }
-/* 버튼 스타일 수정 */
-/*
-#memo-form button {
-    border: none;
-    background-color: #007aff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-    transition: background-color 0.2s;
-}*/
 
 #memo-form button {
     border: none;
@@ -145,14 +116,10 @@ body, html {
     cursor: pointer;
     margin-left: 10px;
     transition: background-color 0.2s;
-
-    /* --- 원형 버튼 스타일 --- */
-    width: 40px;  /* 너비 */
-    height: 40px; /* 높이 */
-    border-radius: 50%; /* 완전한 원으로 만듦 */
-    padding: 0; /* 내부 여백 초기화 */
-
-    /* --- 아이콘을 중앙에 배치하기 위한 Flexbox --- */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,35 +129,14 @@ body, html {
     background-color: #005ecb;
 }
 
-/* ✅ 이 코드를 새로 추가하세요 */
 .send-icon {
-    width: 20px;  /* 아이콘 너비 */
-    height: 20px; /* 아이콘 높이 */
-    
-    /* SVG 아이콘 색상을 검은색에서 흰색으로 변경 */
+    width: 20px;
+    height: 20px;
     filter: invert(1) brightness(2);
 }
 
-/* ======================================== */
-/* ===== 4. 추가된 애니메이션 (Animation) ===== */
-/* ======================================== */
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.note-appear {
-  animation: appear 0.4s ease-out forwards;
-}
-
 /* ================================== */
-/* ===== 5. 상단 파인더 바 (Top Bar) ===== */
+/* ===== 4. 상단 파인더 바 (Top Bar) ===== */
 /* ================================== */
 .top-bar {
     position: fixed;
@@ -233,7 +179,7 @@ body, html {
 }
 
 /* ================================== */
-/* ===== 6. 하단 독 바 (Dock Bar) ===== */
+/* ===== 5. 하단 독 바 (Dock Bar) ===== */
 /* ================================== */
 .dock {
     position: fixed;
@@ -270,75 +216,23 @@ body, html {
 }
 
 /* ======================================== */
-/* ===== 7. 모바일 반응형 스타일 ===== */
+/* ===== 6. 애니메이션 및 상호작용 ===== */
 /* ======================================== */
-
-@media (max-width: 768px) {
-
-    /* --- 상단 바: 불필요한 메뉴 숨기고 여백 조절 --- */
-    .top-bar {
-        padding: 0 10px;
-        font-size: 13px;
-    }
-    .top-bar .menu-item {
-        margin: 0 4px;
-    }
-    .hide-on-mobile {
-        display: none; /* 이 클래스를 가진 요소는 모바일에서 숨김 */
-    }
-
-    /* --- 독 바: 크기를 줄여 공간 확보 --- */
-    .dock {
-        height: 45px;
-        gap: 10px;
-        padding: 5px;
-        border-radius: 14px;
-    }
-    .dock-item {
-        width: 45px;
-        height: 45px;
-        font-size: 30px;
-    }
-    .dock-item:hover {
-        transform: scale(1.2) translateY(-8px); /* 호버 효과도 약간 줄임 */
-    }
-
-    /* --- 메모: 가로 정렬 -> 세로 1열 정렬로 변경 --- */
-    #notes-container {
-        /* 세로로 쌓고, 가운데 정렬 */
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 10px; /* 상단 바 높이를 고려해 패딩 조절 */
-        gap: 20px;
-    }
-    .note-window {
-        width: 90%; /* 화면 너비의 90%를 차지 */
-        max-width: 350px; /* 너무 커지는 것을 방지 */
-    }
-
-    /* --- 입력 폼: 화면 너비에 맞게 조절 --- */
-    #memo-form {
-        width: 90%;
-    }
-    #memo-input {
-        width: 100%; /* 부모 요소 너비에 꽉 차게 */
-    }
-
-    /* --- 구분선: 좌우 여백 줄이기 --- */
-    .divider {
-        left: 5%;
-        right: 5%;
-    }
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-/* ===== 7. 상호작용 및 추가 애니메이션 ===== */
-
-/* 빨간 점에 마우스 올렸을 때 클릭 커서 모양으로 변경 */
-.dot.red {
-    cursor: pointer;
+.note-appear {
+  animation: appear 0.4s ease-out forwards;
 }
 
-/* 메모가 사라질 때 적용될 애니메이션 */
 @keyframes disappear {
   from {
     opacity: 1;
@@ -355,13 +249,12 @@ body, html {
 }
 
 /* ======================================== */
-/* ===== 8. 입력 폼 위 이미지 (추가) ===== */
+/* ===== 7. 입력 폼 위 이미지 (추가) ===== */
 /* ======================================== */
-
 .form-logo {
     top: 10%;
-    width: 500px; /* 이미지 너비 */
-    height: 300px; /* 이미지 높이 */
-    margin-bottom: -60px; /* 이미지와 입력 폼 사이의 간격 */
+    width: 500px;
+    height: 300px;
+    margin-bottom: -60px;
     clip-path: inset(0 0 100px 0);
 }
