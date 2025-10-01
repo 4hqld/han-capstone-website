@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newNote) {
                 createNoteElement(newNote, true);
 
-                if (notesContainer.children.length > 48) {
+                if (notesContainer.children.length > 999) {
                     notesContainer.lastChild.remove();
                 }
             }
