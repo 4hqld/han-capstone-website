@@ -125,7 +125,8 @@ body, html {
     font-size: 16px;
     width: 550px;
 }
-
+/* 버튼 스타일 수정 */
+/*
 #memo-form button {
     border: none;
     background-color: #007aff;
@@ -136,10 +137,38 @@ body, html {
     font-size: 16px;
     margin-left: 10px;
     transition: background-color 0.2s;
+}*/
+
+#memo-form button {
+    border: none;
+    background-color: #007aff;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+
+    /* --- 원형 버튼 스타일 --- */
+    width: 40px;  /* 너비 */
+    height: 40px; /* 높이 */
+    border-radius: 50%; /* 완전한 원으로 만듦 */
+    padding: 0; /* 내부 여백 초기화 */
+
+    /* --- 아이콘을 중앙에 배치하기 위한 Flexbox --- */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #memo-form button:hover {
     background-color: #005ecb;
+}
+
+/* ✅ 이 코드를 새로 추가하세요 */
+.send-icon {
+    width: 20px;  /* 아이콘 너비 */
+    height: 20px; /* 아이콘 높이 */
+    
+    /* SVG 아이콘 색상을 검은색에서 흰색으로 변경 */
+    filter: invert(1) brightness(2);
 }
 
 /* ======================================== */
