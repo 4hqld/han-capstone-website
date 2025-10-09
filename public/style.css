@@ -4,257 +4,188 @@
 /* ===== 1. 기본 및 전체 레이아웃 (Layout) ===== */
 /* ============================================= */
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    margin: 0; padding: 0; width: 100%; height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-image: url(./images/bg2.png);
-    background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;
+    background-size: cover; background-position: center top; background-attachment: fixed;
     overflow: hidden; 
 }
 
-/* grid 방식 */
 #notes-container {
-    position: absolute;
-    top: 28px;
-    left: 120px;
-    right: 120px;
-    bottom: 10vh;
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(180px, auto);
-    align-content: flex-start;
-    padding: 60px 20px;
-    gap: 25px;
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    position: absolute; top: 28px; left: 120px; right: 120px; bottom: 10vh;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, auto);
+    align-content: flex-start; padding: 60px 20px; gap: 25px;
+    overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none;
 }
-
-#notes-container::-webkit-scrollbar {
-    display: none;
-}
+#notes-container::-webkit-scrollbar { display: none; }
 
 /* ================================================= */
 /* ===== 2. 메모 윈도우 컴포넌트 (Component) ===== */
 /* ================================================= */
 .note-window {
-    border-radius: 12px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
     background-color: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden; transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
-
-.note-window:hover {
-    transform: translateY(-5px);
-}
-
-.title-bar {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.dot {
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    margin-left: 8px;
-}
-.dot.red { background-color: #ff5f56; cursor: pointer; }
+.note-window:hover { transform: translateY(-5px); }
+.title-bar { background-color: rgba(0, 0, 0, 0.1); padding: 8px; display: flex; align-items: center; }
+.dot { width: 12px; height: 12px; border-radius: 50%; margin-left: 8px; cursor: pointer; }
+.dot.red { background-color: #ff5f56; }
 .dot.yellow { background-color: #ffbd2e; }
 .dot.green { background-color: #27c93f; }
-
-.content {
-    padding: 20px;
-    font-size: 16px;
-    color: #111;
-    word-wrap: break-word;
-    min-height: 100px;
-}
+.content { padding: 20px; font-size: 16px; color: #111; word-wrap: break-word; min-height: 100px; }
 
 /* ======================================== */
-/* ===== 3. 하단 입력 폼 (Input Form) ===== */
+/* ===== 3. 입력 폼 및 로고 (Input Form & Logo) ===== */
 /* ======================================== */
 .input-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); z-index: 5;
+    display: flex; flex-direction: column; align-items: center;
 }
-
+.form-logo {
+    width: 500px; height: 300px; margin-bottom: -60px;
+    clip-path: inset(0 0 100px 0);
+}
 #memo-form {
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 24px;
-    padding: 5px;
+    border-radius: 24px; padding: 5px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-
 #memo-input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    padding: 10px 20px;
-    font-size: 16px;
-    width: 550px;
+    width: 550px; border: none; outline: none; background-color: transparent;
+    padding: 10px 20px; font-size: 16px;
 }
-
 #memo-form button {
-    border: none;
-    background-color: #007aff;
-    cursor: pointer;
-    margin-left: 10px;
+    width: 40px; height: 40px; border: none; border-radius: 50%;
+    background-color: #007aff; cursor: pointer; margin-left: 10px; padding: 0;
+    display: flex; align-items: center; justify-content: center;
     transition: background-color 0.2s;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
-
-#memo-form button:hover {
-    background-color: #005ecb;
-}
-
-.send-icon {
-    width: 20px;
-    height: 20px;
-    filter: invert(1) brightness(2);
-}
+#memo-form button:hover { background-color: #005ecb; }
+.send-icon { width: 20px; height: 20px; filter: invert(1) brightness(2); }
 
 /* ================================== */
 /* ===== 4. 상단 파인더 바 (Top Bar) ===== */
 /* ================================== */
 .top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 28px; background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    font-size: 14px;
-    color: #111;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px; font-size: 14px; color: #111;
 }
-
-.top-bar .menu {
-    display: flex;
-    align-items: center;
-}
-
-.top-bar .apple-logo {
-    width: 14px;
-    height: 17px;
-    margin-right: 15px;
-    vertical-align: middle;
-    top: -2px;
-}
-
-.top-bar .menu-item {
-    margin: 0 10px;
-}
-
-.top-bar .bold {
-    font-weight: 600;
-}
+.top-bar .menu { display: flex; align-items: center; }
+.top-bar .apple-logo { width: 14px; height: 14px; margin-right: 15px; position: relative; top: -1px; }
+.top-bar .menu-item { margin: 0 10px; }
+.top-bar .bold { font-weight: 600; }
 
 /* ================================== */
 /* ===== 5. 하단 독 바 (Dock Bar) ===== */
 /* ================================== */
 .dock {
-    position: fixed;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 15px;
-    padding: 8px;
-    height: 55px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 100;
+    height: 55px; background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    z-index: 100;
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: 15px; padding: 8px;
 }
-
 .dock-item {
-    width: 55px;
-    height: 55px;
-    font-size: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 55px; height: 55px; font-size: 40px;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
-
-.dock-item:hover {
-    transform: scale(1.3) translateY(-10px);
-}
+.dock-item:hover { transform: scale(1.3) translateY(-10px); }
 
 /* ======================================== */
-/* ===== 6. 애니메이션 및 상호작용 ===== */
+/* ===== 6. 상호작용 및 애니메이션 ===== */
 /* ======================================== */
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.note-window-enlarged {
+    position: fixed; top: 50%; left: 50%; z-index: 200;
+    width: 500px; height: 200px;
+    transform: translate(-50%, -50%); transform-origin: center;
+    animation: none;
 }
-
-.note-appear {
-  animation: appear 0.4s ease-out forwards;
+.note-window-enlarged:hover { transform: translate(-50%, -50%); }
+.overlay {
+    position: fixed; top: 0; left: 0; z-index: 150;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
 }
-
+.note-hidden { opacity: 0; transform: translateY(20px); }
 @keyframes disappear {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
 }
-
-.note-disappear {
-  animation: disappear 0.3s ease-out forwards;
-}
+.note-disappear { animation: disappear 0.3s ease-out forwards; }
 
 /* ======================================== */
-/* ===== 7. 입력 폼 위 이미지 (추가) ===== */
+/* ===== 7. 뮤직 플레이어 UI (추가) ===== */
 /* ======================================== */
-.form-logo {
-    top: 10%;
-    width: 500px;
-    height: 300px;
-    margin-bottom: -60px;
-    clip-path: inset(0 0 100px 0);
+#music-player {
+    position: fixed; top: 28px; bottom: 0; right: 0;
+    width: 320px;
+    background-color: rgba(240, 240, 240, 0.25);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+    z-index: 90;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+#music-player.visible { transform: translateX(0); }
+
+.close-btn { 
+    position: absolute; top: 10px; right: 15px; 
+    background: none; border: none; font-size: 24px; 
+    cursor: pointer; opacity: 0.5; color: #222; 
+}
+.close-btn:hover { opacity: 1; }
+
+.wrapper {height: 100%; padding: 20px; box-sizing: border-box;}
+.wrapper .info {text-align: center; margin: 20px 0; color: #222;}
+.wrapper .info h1 {font-size: 24px; margin: 0;}
+.wrapper .info p {font-size: 14px; opacity: 0.8; margin: 5px 0 0 0;}
+
+
+/* (수정) 실제 콘텐츠를 감싸는 .player-content에 정렬 속성 적용 */
+.player-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #222;
+}
+
+.album-art { 
+    width: 200px; height: 200px; border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    margin-top: 20px; 
+}
+.song-info { text-align: center; margin: 25px 0; }
+.song-info .title { font-size: 20px; font-weight: 600; margin: 0; }
+.song-info .artist { font-size: 16px; opacity: 0.7; margin: 5px 0 0 0; }
+
+/*.controls {display: flex; align-items: center; gap: 30px; font-size: 24px;}*/
+.controls { 
+    width: 200px; /* 앨범 아트 및 재생 바와 너비 통일 */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; /* 중앙 정렬 */
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.controls img { width: 24px; height: 24px; opacity: 0.8; box-shadow: none; }
+.controls .play img { transform: scale(1.3); opacity: 1; }
+
+.track-time { width: 200px; margin-top: auto; }
+.track { width: 100%; height: 6px; background-color: rgba(0, 0, 0, 0.2); border-radius: 3px; }
+.track .progress { width: 30%; height: 100%; background-color: #555; border-radius: 3px; }
+.track-time .time { display: flex; justify-content: space-between; font-size: 12px; color: #333; margin-top: 5px; }

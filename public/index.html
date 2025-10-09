@@ -11,12 +11,12 @@
         <div class="menu">
             <img src="./images/Apple_logo.svg.webp" alt="Apple Logo" class="apple-logo">
             <span class="menu-item bold">Memo</span>
-            <span class="menu-item hide-on-mobile">파일</span>
-            <span class="menu-item hide-on-mobile">편집</span>
-            <span class="menu-item hide-on-mobile">보기</span>
-            <span class="menu-item hide-on-mobile">이동</span>
-            <span class="menu-item hide-on-mobile">윈도우</span>
-            <span class="menu-item hide-on-mobile">도움말</span>
+            <span class="menu-item">파일</span>
+            <span class="menu-item">편집</span>
+            <span class="menu-item">보기</span>
+            <span class="menu-item">이동</span>
+            <span class="menu-item">윈도우</span>
+            <span class="menu-item">도움말</span>
         </div>
         <div class="status">
             <span class="time" id="current-time"></span>
@@ -24,6 +24,7 @@
     </header>
 
     <div id="notes-container"></div>
+    
     <div class="input-container">
         <img src="./images/sde.png" alt="너였다" class="form-logo">
         <form id="memo-form">
@@ -34,14 +35,50 @@
         </form>
     </div>
 
+    <aside id="music-player">
+        <button class="close-btn" aria-label="닫기">&times;</button>
+            <div class="wrapper">
+            <div class="info">
+               <h1>지금 재생 중</h1>
+            </div>
+        <div class="player-content">
+            <img src="./images/album-art.jpg" alt="앨범 아트" class="album-art">
+            <div class="song-info">
+                <p class="title">永遠という光</p>
+                <p class="artist">Fhána</p>
+           <div class="controls">
+                <div class="prev">
+                    <img src="./svgs/icon-prev.svg" alt="Previous">
+                </div>
+                <div class="play">
+                    <img src="./svgs/icon-play.svg" alt="Play">
+                </div>
+                <div class="next">
+                    <img src="./svgs/icon-next.svg" alt="Next">
+                </div>
+            </div>
+
+            <div class="track-time">
+                <div class="track">
+                    <div class="progress"></div>
+                </div>
+                <div class="time">
+                    <div class="last-time">00:12</div>                    
+                    <div class="total-time">03:20</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <footer class="dock">
         <div class="dock-item" title="Finder">🏞️</div>
         <div class="dock-item" title="Memo">📝</div>
         <div class="dock-item" title="Messages">💬</div>
-        <div class="dock-item" title="Music">🎵</div>
+        <div class="dock-item" id="dock-music-icon" title="Music">🎵</div>
         <div class="dock-item" title="Settings">⚙️</div>
     </footer>
 
+    <audio id="main-audio" src="./music/fhana-eternal-light.mp3"></audio>
     <script src="script.js"></script>
 </body>
 </html>
