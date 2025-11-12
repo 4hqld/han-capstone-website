@@ -73,6 +73,7 @@ body, html {
     margin-top: -130px; /* 로고 이미지와 겹치도록 음수 마진 (필요 시 조절) */
     margin-bottom: -60px; /* 폼과의 간격 조절 */
     opacity: 0.9; /* 약간 투명하게 (선택 사항) */
+    clip-path: inset(0 0 50px 0); /* 위, 오른쪽, 아래, 왼쪽 순서 */
     /* 필요에 따라 추가 스타일 (예: border-radius, box-shadow) */
 }
 
@@ -126,8 +127,8 @@ body, html {
 .overlay {
     position: fixed; top: 0; left: 0; z-index: 150;
     width: 100%; height: 100%;
-    /*background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);*/
+    /*background-color: rgba(0, 0, 0, 0.6);*/
+    backdrop-filter: blur(5px);
 }
 .note-hidden { opacity: 0; transform: translateY(20px); }
 @keyframes disappear {
@@ -200,7 +201,7 @@ body, html {
 
 .track-time { width: 200px; margin-top: auto; }
 .track { width: 100%; height: 6px; background-color: rgba(0, 0, 0, 0.2); border-radius: 3px; }
-.track .progress { width: 30%; height: 100%; background-color: #555; border-radius: 3px; }
+.track .progress { width: 0%; height: 100%; background-color: #555; border-radius: 3px; }
 .track-time .time { display: flex; justify-content: space-between; font-size: 12px; color: #333; margin-top: 5px; }
 
 #music-player .subtitle {
