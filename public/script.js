@@ -51,17 +51,28 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTime, 1000);
 
     // --- 뮤직 플레이어 토글 이벤트 (🎵 아이콘) ---
-     musicIcon.addEventListener('click', () => {
+    musicIcon.addEventListener('click', () => {
+        // 1. 열기 전에, 다른 창(가사)을 닫습니다.
+        lyricsSidebar.classList.remove('visible');
+
+        // 2. 뮤직 플레이어를 토글합니다.
         musicPlayer.classList.toggle('visible');
-        // 플레이어를 열었고, 가사를 아직 로드 안했다면 로드
+
+        // 3. (필요시) 가사를 로드합니다.
         if (musicPlayer.classList.contains('visible') && !lyricsLoaded) {
             loadLyrics();
         }
-    });; 
+    });
 
     // --- 가사 바로가기 이벤트 (💬 아이콘) ---
-    lyricsIcon.addEventListener('click', () => { // 변수명을 lyricsIcon으로 변경
-        lyricsSidebar.classList.toggle('visible'); // 가사 사이드바를 토글
+    lyricsIcon.addEventListener('click', () => {
+        // 1. 열기 전에, 다른 창(뮤직 플레이어)을 닫습니다.
+        musicPlayer.classList.remove('visible');
+
+        // 2. 가사 사이드바를 토글합니다.
+        lyricsSidebar.classList.toggle('visible');
+
+        // 3. (필요시) 가사를 로드합니다.
         if (lyricsSidebar.classList.contains('visible') && !lyricsLoaded) {
             loadLyrics();
         }
