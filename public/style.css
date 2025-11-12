@@ -19,10 +19,27 @@ body, html {
 }
 
 #notes-container {
-    position: absolute; top: 2.8rem; left: 12rem; right: 12rem; bottom: 10vh;
-    display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(18rem, auto);
-    align-content: flex-start; padding: 6rem 2rem; gap: 2.5rem;
-    overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none;
+    position: absolute; 
+    top: 2.8rem; 
+    bottom: 10vh;
+
+    /* 1. 화면 중앙 정렬 및 최대 너비 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw; /* 화면 너비의 90%를 사용 */
+    max-width: 180rem; /* (1800px) 최대 너비를 제한해 매우 넓은 화면에서 균형 유지 */
+
+    /* 2. 유동형 그리드로 변경 */
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr)); /* 핵심 */
+    grid-auto-rows: minmax(18rem, auto);
+
+    align-content: flex-start; 
+    padding: 6rem 2rem; 
+    gap: 2.5rem;
+    overflow-y: auto; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
 }
 #notes-container::-webkit-scrollbar { display: none; }
 
