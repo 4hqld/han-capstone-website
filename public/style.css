@@ -378,7 +378,6 @@ body, html {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
     z-index: 260; /* 크레딧 모달보다 위에 표시 */
     
