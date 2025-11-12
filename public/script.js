@@ -41,6 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 뮤직 플레이어 가사창 요소 ---
     const musicPlayerSubtitleEl = musicPlayer.querySelector('.subtitle'); // 뮤직 플레이어 내 가사창
 
+    // --- 크레딧 모달 관련 요소 ---
+    const settingsIcon = document.getElementById('dock-settings-icon');
+    const creditsModal = document.getElementById('credits-modal');
+    const closeCreditsModalBtn = creditsModal.querySelector('.close-btn');
+
+    // --- 파인더 이미지 모달 관련 요소 ---
+    const finderIcon = document.getElementById('dock-finder-icon');
+    const finderModal = document.getElementById('finder-modal');
+    const closeFinderModalBtn = finderModal.querySelector('.close-btn');
+    
     // =============================================
     // ===== 2. 이벤트 리스너 (Event Listeners) =====
     // =============================================
@@ -293,6 +303,65 @@ document.addEventListener('DOMContentLoaded', () => {
         const duration = audioPlayer.duration;
         audioPlayer.currentTime = (clickX / width) * duration;
     }
+    // --- 가사 사이드바 닫기 버튼 이벤트 ---
+closeLyricsSidebarBtn.addEventListener('click', () => {
+    lyricsSidebar.classList.remove('visible');
+});
+
+// --- 크레딧 모달 열기 이벤트 (⚙️ 아이콘) ---
+    settingsIcon.addEventListener('click', () => {
+        // 다른 사이드바는 닫음
+        musicPlayer.classList.remove('visible');
+        lyricsSidebar.classList.remove('visible');
+        finderModal.classList.remove('visible'); // ✅ 추가
+        // 크레딧 창 열기
+        creditsModal.classList.add('visible');
+        });
+
+        // --- 크레딧 모달 닫기 버튼 이벤트 ---
+        closeCreditsModalBtn.addEventListener('click', () => {
+            creditsModal.classList.remove('visible');
+        });
+
+        // (선택 사항) 모달 바깥쪽 어두운 영역 클릭 시 닫기
+        creditsModal.addEventListener('click', (e) => {
+            if (e.target === creditsModal) {
+                creditsModal.classList.remove('visible');
+        }
+    });
+// --- 크레딧 모달 닫기 버튼 이벤트 ---
+closeCreditsModalBtn.addEventListener('click', () => {
+    creditsModal.classList.remove('visible');
+});
+// (선택 사항) 모달 바깥쪽 어두운 영역 클릭 시 닫기
+creditsModal.addEventListener('click', (e) => {
+    if (e.target === creditsModal) {
+        creditsModal.classList.remove('visible');
+    }
+});
+
+// --- 파인더 이미지 모달 열기 이벤트 (🏞️ 아이콘) ---
+    finderIcon.addEventListener('click', () => {
+        // 다른 사이드바와 모달 모두 닫음
+        musicPlayer.classList.remove('visible');
+        lyricsSidebar.classList.remove('visible');
+        creditsModal.classList.remove('visible'); // ✅ 추가
+
+        // 파인더 이미지 창 열기
+        finderModal.classList.add('visible');
+});
+
+    // --- 파인더 이미지 모달 닫기 버튼 이벤트 ---
+    closeFinderModalBtn.addEventListener('click', () => {
+        finderModal.classList.remove('visible');
+    });
+
+// (선택 사항) 모달 바깥쪽 어두운 영역 클릭 시 닫기
+    finderModal.addEventListener('click', (e) => {
+        if (e.target === finderModal) {
+            finderModal.classList.remove('visible');
+        }
+    });
 });
 
 // =======================================================
