@@ -344,7 +344,7 @@ body, html {
 /* ======================================= */
 
 /* 1. 넓은 노트북/데스크톱 화면 (1200px 이하) */
-@media (max-width: 120rem) { /* 1200px */
+@media (max-width: 100rem) { /* 1200px */
     #notes-container {
         grid-template-columns: repeat(3, 1fr); /* 4열 -> 3열 */
         left: 2rem;
