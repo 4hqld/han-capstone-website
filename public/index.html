@@ -27,8 +27,9 @@
     
     <div class="input-container">
         <img src="./images/sde.png" alt="너였다" class="form-logo">
+        <img src="./images/Info_message.png" alt="정보 메시지" class="info-message-logo">
         <form id="memo-form">
-            <input type="text" id="memo-input" placeholder="메모를 입력하세요..." required autocomplete="off">
+            <input type="text" id="memo-input" placeholder="당신의 이야기를 적어주세요." required autocomplete="off">
             <button type="submit" aria-label="전송">
                 <img src="./svgs/send-icon.svg" alt="전송 아이콘" class="send-icon">
             </button>
@@ -42,10 +43,10 @@
                <h1>지금 재생 중인</h1>
             </div>
         <div class="player-content">
-            <img src="./images/album-art.jpg" alt="앨범 아트" class="album-art">
+            <img src="./images/Album_cover.jpg" alt="앨범 아트" class="album-art">
             <div class="song-info">
-                <p class="title">永遠という光</p>
-                <p class="artist">Fhána</p>
+                <p class="title">너였다</p>
+                <p class="artist">팀 에픽소드</p>
            <div class="controls">
                 <div class="prev">
                     <img src="./svgs/icon-prev.svg" alt="Previous">
@@ -67,18 +68,25 @@
                     <div class="total-time">03:20</div>
                 </div>
             </div>
-        </div>
+            <div class="subtitle"></div>
     </aside>
 
+    <aside id="lyrics-sidebar">
+    <button class="close-btn" aria-label="닫기">&times;</button>
+    <div class="lyrics-content">
+        <h2>가사</h2>
+        <div class="lyrics-text">가사를 불러오는 중...</div>
+    </div>
+</aside>
     <footer class="dock">
         <div class="dock-item" title="Finder">🏞️</div>
         <div class="dock-item" title="Memo">📝</div>
-        <div class="dock-item" title="Messages">💬</div>
+        <div class="dock-item" id="dock-lyrics-icon" title="Messages">💬</div>
         <div class="dock-item" id="dock-music-icon" title="Music">🎵</div>
         <div class="dock-item" title="Settings">⚙️</div>
     </footer>
 
-    <audio id="main-audio" src="./music/fhana-eternal-light.mp3"></audio>
+    <audio id="main-audio" src="./music/It-was-you.mp3"></audio>
     <script src="script.js"></script>
 </body>
 </html>

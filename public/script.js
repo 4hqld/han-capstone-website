@@ -14,45 +14,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 뮤직 플레이어 UI 관련 요소 ---
     const musicIcon = document.getElementById('dock-music-icon');
+    const lyricsIcon = document.getElementById('dock-lyrics-icon'); // 💬 '가사 바로가기' 아이콘
     const musicPlayer = document.getElementById('music-player');
     const closeMusicPlayerBtn = musicPlayer.querySelector('.close-btn');
 
     // --- 음악 재생 컨트롤 관련 요소 ---
-    const audioPlayer = document.getElementById('main-audio'); // 실제 오디오
-    const playBtn = document.querySelector('.controls .play'); // 재생/일시정지 버튼
-    const prevBtn = document.querySelector('.controls .prev'); // 이전 곡 버튼
-    const nextBtn = document.querySelector('.controls .next'); // 다음 곡 버튼
+    const audioPlayer = document.getElementById('main-audio');
+    const playBtn = document.querySelector('.controls .play');
+    const prevBtn = document.querySelector('.controls .prev');
+    const nextBtn = document.querySelector('.controls .next');
     
-    const progress = document.querySelector('.track .progress'); // 재생 진행률 바 (색깔이 채워지는 부분)
-    const trackContainer = document.querySelector('.track');    // 재생 바 전체 컨테이너
-    const totalTimeEl = document.querySelector('.time .total-time');    // 전체 시간 요소
-    const currentTimeEl = document.querySelector('.time .last-time'); // 현재 시간 요소
-    
-    let isPlaying = false; // 음악 재생 상태를 추적하는 변수 (true: 재생중, false: 멈춤)
+    const progress = document.querySelector('.track .progress');
+    const trackContainer = document.querySelector('.track');
+    const totalTimeEl = document.querySelector('.time .total-time');
+    const currentTimeEl = document.querySelector('.time .last-time');
 
+    // --- 상태 변수 (State Variables) ---
+    let isPlaying = false;
+    let lyricsLoaded = false;
+
+    // --- 가사 사이드바 관련 요소 ---
+    const lyricsSidebar = document.getElementById('lyrics-sidebar');
+    const closeLyricsSidebarBtn = lyricsSidebar.querySelector('.close-btn');
+    const lyricsTextEl = lyricsSidebar.querySelector('.lyrics-text');
+
+    // --- 뮤직 플레이어 가사창 요소 ---
+    const musicPlayerSubtitleEl = musicPlayer.querySelector('.subtitle'); // 뮤직 플레이어 내 가사창
 
     // =============================================
     // ===== 2. 이벤트 리스너 (Event Listeners) =====
     // =============================================
 
     // --- 초기화 함수 실행 ---
-    fetchNotes(); // 페이지 로드 시 기존 메모 불러오기
-    updateTime(); // 페이지 로드 시 현재 시간 표시
-    setInterval(updateTime, 1000); // 1초마다 시간 업데이트
+    fetchNotes();
+    updateTime();
+    setInterval(updateTime, 1000);
 
-    // --- 뮤직 플레이어 토글 이벤트 ---
-    musicIcon.addEventListener('click', () => musicPlayer.classList.toggle('visible'));
+    // --- 뮤직 플레이어 토글 이벤트 (🎵 아이콘) ---
+     musicIcon.addEventListener('click', () => {
+        musicPlayer.classList.toggle('visible');
+        // 플레이어를 열었고, 가사를 아직 로드 안했다면 로드
+        if (musicPlayer.classList.contains('visible') && !lyricsLoaded) {
+            loadLyrics();
+        }
+    });; 
+
+    // --- 가사 바로가기 이벤트 (💬 아이콘) ---
+    lyricsIcon.addEventListener('click', () => { // 변수명을 lyricsIcon으로 변경
+        lyricsSidebar.classList.toggle('visible'); // 가사 사이드바를 토글
+        if (lyricsSidebar.classList.contains('visible') && !lyricsLoaded) {
+            loadLyrics();
+        }
+    });
+
+    // --- 플레이어 닫기 버튼 이벤트 ---
     closeMusicPlayerBtn.addEventListener('click', () => musicPlayer.classList.remove('visible'));
+
+    // ✅ --- 가사 모달 닫기 버튼 이벤트 (새로 추가) ---
+    // --- 가사 사이드바 닫기 버튼 이벤트 ---
+    closeLyricsSidebarBtn.addEventListener('click', () => {
+        lyricsSidebar.classList.remove('visible');
+    });
 
     // --- 메모 입력 폼 제출 이벤트 ---
     form.addEventListener('submit', handleFormSubmit);
 
     // --- 음악 재생 컨트롤 이벤트 ---
-    playBtn.addEventListener('click', togglePlayPause); // 재생 버튼 클릭 시
-    audioPlayer.addEventListener('timeupdate', updateProgressBar); // 재생 시간 변경 시
-    audioPlayer.addEventListener('loadedmetadata', setTotalTime); // 오디오 파일 로드 완료 시
-    audioPlayer.addEventListener('ended', pauseMusic); // 음악 재생이 끝나면
-    trackContainer.addEventListener('click', setProgress); // 재생 바 클릭 시
+    playBtn.addEventListener('click', togglePlayPause);
+    audioPlayer.addEventListener('timeupdate', updateProgressBar);
+    audioPlayer.addEventListener('loadedmetadata', setTotalTime);
+    audioPlayer.addEventListener('ended', pauseMusic);
+    trackContainer.addEventListener('click', setProgress);
 
 
     // ========================================
@@ -61,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * 메모 입력 폼 제출 처리 함수
-     * @param {Event} e - 폼 제출 이벤트 객체
      */
     async function handleFormSubmit(e) {
         e.preventDefault();
@@ -80,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 서버에서 메모 목록을 가져와 화면에 표시하는 함수
+     * 서버에서 메모 목록을 가져와 화면에 표시
      */
     async function fetchNotes() {
         try {
@@ -92,8 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 서버에 새 메모를 저장하는 함수
-     * @param {string} content - 저장할 메모 내용
+     * 서버에 새 메모를 저장
      */
     async function saveNote(content) {
         try {
@@ -107,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 메모 창 DOM 요소를 생성하고 모든 이벤트 리스너를 추가하는 함수
+     * 메모 창 DOM 요소를 생성하고 모든 이벤트 리스너를 추가
      */
     function createNoteElement(note, shouldAnimate = false) {
         const noteWindow = document.createElement('div');
@@ -122,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 noteWindow.classList.remove('note-window-enlarged');
                 toggleOverlay();
             } else {
-                    deleteNote(note.id, noteWindow);
+                deleteNote(note.id, noteWindow); // 확인 창 없는 버전
             }
         });
     
@@ -135,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         notesContainer.appendChild(noteWindow);
     
-        // 등장 애니메이션을 안정적으로 실행하기 위해 requestAnimationFrame 사용
         if (shouldAnimate) {
             requestAnimationFrame(() => { noteWindow.classList.remove('note-hidden'); });
         }
@@ -143,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 서버에 메모 삭제를 요청하고 화면에서 제거하는 함수
+     * 서버에 메모 삭제를 요청하고 화면에서 제거
      */
     async function deleteNote(noteId, noteElement) {
         try {
@@ -156,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 화면에 반투명 오버레이를 만들거나 제거하는 함수
+     * 창 확대 시 뒷배경 오버레이를 토글
      */
     function toggleOverlay() {
         let overlay = document.querySelector('.overlay');
@@ -173,8 +202,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 음악 재생 관련 함수 ---
+
     /**
-     * 음악 재생 상태를 토글(재생/일시정지)하는 함수
+     * .txt 파일에서 가사를 비동기로 불러와 가사 모달에 채우는 함수
+     */
+    async function loadLyrics() {
+        try {
+            const response = await fetch('/music/lyrics.txt');
+            if (!response.ok) {
+                throw new Error('가사 파일을 찾을 수 없습니다.');
+            }
+            const lyricsText = await response.text();
+
+            // ✅ 두 요소 모두에 가사를 채웁니다.
+            lyricsTextEl.textContent = lyricsText;
+            musicPlayerSubtitleEl.textContent = lyricsText; 
+
+            lyricsLoaded = true;
+        } catch (error) {
+            console.error('가사 로딩 오류:', error);
+            // ✅ 두 요소 모두에 오류 메시지를 표시합니다.
+            lyricsTextEl.textContent = '가사를 불러올 수 없습니다.';
+            musicPlayerSubtitleEl.textContent = '가사를 불러올 수 없습니다.';
+        }
+    }
+    
+    /**
+     * 음악 재생 상태를 토글(재생/일시정지)
      */
     function togglePlayPause() {
         if (isPlaying) {
@@ -185,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /**
-     * 음악을 재생하고 아이콘을 '일시정지'로 변경하는 함수
+     * 음악을 재생하고 아이콘을 '일시정지'로 변경
      */
     function playMusic() {
         isPlaying = true;
@@ -194,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 음악을 멈추고 아이콘을 '재생'으로 변경하는 함수
+     * 음악을 멈추고 아이콘을 '재생'으로 변경
      */
     function pauseMusic() {
         isPlaying = false;
@@ -203,31 +257,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /**
-     * 음악 재생 진행률에 따라 재생 바와 현재 시간을 업데이트하는 함수
+     * 음악 재생 진행률에 따라 재생 바와 현재 시간을 업데이트
      */
     function updateProgressBar(e) {
         const { duration, currentTime } = e.srcElement;
-        // 재생률(%) = (현재 시간 / 전체 시간) * 100
         const progressPercent = (currentTime / duration) * 100;
         progress.style.width = `${progressPercent}%`;
         currentTimeEl.textContent = formatTime(currentTime);
     }
     
     /**
-     * 음악 파일의 전체 길이를 UI에 표시하는 함수
+     * 음악 파일의 전체 길이를 UI에 표시
      */
     function setTotalTime() {
         totalTimeEl.textContent = formatTime(audioPlayer.duration);
     }
 
     /**
-     * 재생 바(track bar)를 클릭했을 때 해당 위치로 음악을 이동시키는 함수
+     * 재생 바(track bar)를 클릭했을 때 해당 위치로 음악을 이동
      */
     function setProgress(e) {
-        const width = this.clientWidth; // 재생 바 전체 너비
-        const clickX = e.offsetX; // 재생 바 내에서 클릭한 x좌표
-        const duration = audioPlayer.duration; // 오디오 전체 길이
-        audioPlayer.currentTime = (clickX / width) * duration; // 클릭 위치에 비례하여 재생 시간 변경
+        const width = this.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audioPlayer.duration;
+        audioPlayer.currentTime = (clickX / width) * duration;
     }
 });
 

@@ -41,7 +41,7 @@ body, html {
 /* ===== 3. 입력 폼 및 로고 (Input Form & Logo) ===== */
 /* ======================================== */
 .input-container {
-    position: absolute; top: 50%; left: 50%;
+    position: absolute; top: 48%; left: 50%;
     transform: translate(-50%, -50%); z-index: 5;
     display: flex; flex-direction: column; align-items: center;
 }
@@ -67,6 +67,14 @@ body, html {
 }
 #memo-form button:hover { background-color: #005ecb; }
 .send-icon { width: 20px; height: 20px; filter: invert(1) brightness(2); }
+
+.info-message-logo {
+    width: 400px; height: 220px;
+    margin-top: -130px; /* 로고 이미지와 겹치도록 음수 마진 (필요 시 조절) */
+    margin-bottom: -60px; /* 폼과의 간격 조절 */
+    opacity: 0.9; /* 약간 투명하게 (선택 사항) */
+    /* 필요에 따라 추가 스타일 (예: border-radius, box-shadow) */
+}
 
 /* ================================== */
 /* ===== 4. 상단 파인더 바 (Top Bar) ===== */
@@ -113,11 +121,13 @@ body, html {
     animation: none;
 }
 .note-window-enlarged:hover { transform: translate(-50%, -50%); }
+
+/* 오버레이 배경 (메모 확대 시) */
 .overlay {
     position: fixed; top: 0; left: 0; z-index: 150;
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
+    /*background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);*/
 }
 .note-hidden { opacity: 0; transform: translateY(20px); }
 @keyframes disappear {
@@ -169,6 +179,7 @@ body, html {
     width: 200px; height: 200px; border-radius: 8px; 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
     margin-top: 20px; 
+    object-fit: cover;
 }
 .song-info { text-align: center; margin: 25px 0; }
 .song-info .title { font-size: 20px; font-weight: 600; margin: 0; }
@@ -191,3 +202,97 @@ body, html {
 .track { width: 100%; height: 6px; background-color: rgba(0, 0, 0, 0.2); border-radius: 3px; }
 .track .progress { width: 30%; height: 100%; background-color: #555; border-radius: 3px; }
 .track-time .time { display: flex; justify-content: space-between; font-size: 12px; color: #333; margin-top: 5px; }
+
+#music-player .subtitle {
+    width: 200px;
+    max-height: 340px;
+    overflow-y: auto;
+    margin: 20px 0;
+    padding: 10px;
+    /*background-color: rgba(0, 0, 0, 0.05);*/
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    white-space: pre-line;
+    
+    /* 스크롤바 숨기기 */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#music-player .subtitle::-webkit-scrollbar {
+    display: none;
+}
+
+/* ========================================== */
+/* ===== 8. 가사 사이드바 (Lyrics Sidebar) ===== */
+/* ========================================== */
+
+#lyrics-sidebar {
+    position: fixed;
+    top: 28px;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    background-color: rgba(240, 240, 240, 0.25); /* 배경색을 부모에 적용 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+    z-index: 89;
+    
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* 1. 부모에 둥근 모서리와 overflow: hidden 적용 */
+    border-radius: 18px 0 0 18px;
+    overflow: hidden;
+    
+    /* 2. 부모의 padding은 반드시 제거! */
+    /* padding: 20px; <-- 이 속성이 있으면 안 됩니다. */
+}
+
+#lyrics-sidebar.visible {
+    transform: translateX(0);
+}
+
+/* 닫기 버튼은 .close-btn 공용 스타일을 사용합니다. */
+
+/* 3. 자식인 .lyrics-content가 부모를 100% 채우도록 설정 */
+#lyrics-sidebar .lyrics-content {
+    width: 100%;
+    height: 100%;
+    padding: 20px; /* 패딩을 부모 대신 자식에게 적용 */
+    box-sizing: border-box;
+    
+    /* Flexbox로 내부 콘텐츠(제목, 가사) 정렬 */
+    display: flex;
+    flex-direction: column;
+}
+
+#lyrics-sidebar .lyrics-content h2 {
+    text-align: center;
+    color: #222;
+    font-size: 24px;
+    margin-top: 20px;
+    flex-shrink: 0; /* 제목이 줄어들지 않도록 함 */
+}
+
+#lyrics-sidebar .lyrics-text {
+    flex-grow: 1; /* 제목을 제외한 남은 공간을 모두 차지 */
+    overflow-y: auto; /* 내용이 넘칠 때만 스크롤 */
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-line;
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+
+    /* 스크롤바 숨기기 */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#lyrics-sidebar .lyrics-text::-webkit-scrollbar {
+    display: none;
+}
