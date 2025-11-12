@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const finderModal = document.getElementById('finder-modal');
     const closeFinderModalBtn = finderModal.querySelector('.close-btn');
     
+    // --- '모두 닫기' 아이콘 (📝) ---
+    const memoIcon = document.getElementById('dock-memo-icon');
+
     // =============================================
     // ===== 2. 이벤트 리스너 (Event Listeners) =====
     // =============================================
@@ -361,6 +364,14 @@ creditsModal.addEventListener('click', (e) => {
         if (e.target === finderModal) {
             finderModal.classList.remove('visible');
         }
+    });
+// --- '모두 닫기' 아이콘 (📝) 이벤트 --
+// --- 모든 창 닫기 이벤트 (📝 아이콘) ---
+        memoIcon.addEventListener('click', () => {
+        musicPlayer.classList.remove('visible');
+        lyricsSidebar.classList.remove('visible');
+        creditsModal.classList.remove('visible');
+        finderModal.classList.remove('visible');
     });
 });
 
