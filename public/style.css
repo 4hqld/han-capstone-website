@@ -1,12 +1,4 @@
-/* style.css (rem 단위 변환) */
-
-/* * 1rem = 10px로 계산하기 위한 기준 설정
- * 브라우저 기본값 16px의 62.5% = 10px
-    16px * 0.625 = 10px
-*/
-html {
-    font-size: 62.5%;
-}
+/* style.css */
 
 /* ============================================= */
 /* ===== 1. 기본 및 전체 레이아웃 (Layout) ===== */
@@ -20,27 +12,10 @@ body, html {
 }
 
 #notes-container {
-    position: absolute; 
-    top: 2.8rem; 
-    bottom: 10vh;
-
-    /* 1. 화면 중앙 정렬 및 최대 너비 설정 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90vw; /* 화면 너비의 90%를 사용 */
-    max-width: 180rem; /* (1800px) 최대 너비를 제한해 매우 넓은 화면에서 균형 유지 */
-
-    /* 2. 유동형 그리드로 변경 */
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr)); /* 핵심 */
-    grid-auto-rows: minmax(18rem, auto);
-
-    align-content: flex-start; 
-    padding: 6rem 2rem; 
-    gap: 2.5rem;
-    overflow-y: auto; 
-    -ms-overflow-style: none; 
-    scrollbar-width: none;
+    position: absolute; top: 28px; left: 120px; right: 120px; bottom: 10vh;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, auto);
+    align-content: flex-start; padding: 60px 20px; gap: 25px;
+    overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none;
 }
 #notes-container::-webkit-scrollbar { display: none; }
 
@@ -50,17 +25,17 @@ body, html {
 .note-window {
     background-color: rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 1.2rem;
-    box-shadow: 0 0.8rem 3.2rem 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     overflow: hidden; transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
-.note-window:hover { transform: translateY(-0.5rem); }
-.title-bar { background-color: rgba(0, 0, 0, 0.1); padding: 0.8rem; display: flex; align-items: center; }
-.dot { width: 1.2rem; height: 1.2rem; border-radius: 50%; margin-left: 0.8rem; cursor: pointer; }
+.note-window:hover { transform: translateY(-5px); }
+.title-bar { background-color: rgba(0, 0, 0, 0.1); padding: 8px; display: flex; align-items: center; }
+.dot { width: 12px; height: 12px; border-radius: 50%; margin-left: 8px; cursor: pointer; }
 .dot.red { background-color: #ff5f56; }
 .dot.yellow { background-color: #ffbd2e; }
 .dot.green { background-color: #27c93f; }
-.content { padding: 2rem; font-size: 1.6rem; color: #111; word-wrap: break-word; min-height: 10rem; }
+.content { padding: 20px; font-size: 16px; color: #111; word-wrap: break-word; min-height: 100px; }
 
 /* ======================================== */
 /* ===== 3. 입력 폼 및 로고 (Input Form & Logo) ===== */
@@ -71,34 +46,35 @@ body, html {
     display: flex; flex-direction: column; align-items: center;
 }
 .form-logo {
-    width: 50rem; height: 30rem; margin-bottom: -6rem;
-    clip-path: inset(0 0 10rem 0);
+    width: 500px; height: 300px; margin-bottom: -60px;
+    clip-path: inset(0 0 100px 0);
 }
 #memo-form {
     display: flex; align-items: center;
     background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 2.4rem; padding: 0.5rem;
-    box-shadow: 0 0.4rem 0.6rem rgba(0,0,0,0.1);
+    border-radius: 24px; padding: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 #memo-input {
-    width: 55rem; border: none; outline: none; background-color: transparent;
-    padding: 1rem 2rem; font-size: 1.6rem;
+    width: 550px; border: none; outline: none; background-color: transparent;
+    padding: 10px 20px; font-size: 16px;
 }
 #memo-form button {
-    width: 4rem; height: 4rem; border: none; border-radius: 50%;
-    background-color: #007aff; cursor: pointer; margin-left: 1rem; padding: 0;
+    width: 40px; height: 40px; border: none; border-radius: 50%;
+    background-color: #007aff; cursor: pointer; margin-left: 10px; padding: 0;
     display: flex; align-items: center; justify-content: center;
     transition: background-color 0.2s;
 }
 #memo-form button:hover { background-color: #005ecb; }
-.send-icon { width: 2rem; height: 2rem; filter: invert(1) brightness(2); }
+.send-icon { width: 20px; height: 20px; filter: invert(1) brightness(2); }
 
 .info-message-logo {
-    width: 40rem; height: 22rem;
-    margin-top: -13rem;
-    margin-bottom: -6rem;
-    opacity: 0.9;
-    clip-path: inset(0 0 5rem 0);
+    width: 400px; height: 220px;
+    margin-top: -130px; /* 로고 이미지와 겹치도록 음수 마진 (필요 시 조절) */
+    margin-bottom: -60px; /* 폼과의 간격 조절 */
+    opacity: 0.9; /* 약간 투명하게 (선택 사항) */
+    clip-path: inset(0 0 50px 0); /* 위, 오른쪽, 아래, 왼쪽 순서 */
+    /* 필요에 따라 추가 스타일 (예: border-radius, box-shadow) */
 }
 
 /* ================================== */
@@ -106,53 +82,55 @@ body, html {
 /* ================================== */
 .top-bar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    height: 2.8rem; background-color: rgba(255, 255, 255, 0.2);
+    height: 28px; background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; font-size: 1.4rem; color: #111;
+    padding: 0 20px; font-size: 14px; color: #111;
 }
 .top-bar .menu { display: flex; align-items: center; }
-.top-bar .apple-logo { width: 1.4rem; height: 1.4rem; margin-right: 1.5rem; position: relative; top: -0.1rem; }
-.top-bar .menu-item { margin: 0 1rem; }
+.top-bar .apple-logo { width: 14px; height: 14px; margin-right: 15px; position: relative; top: -1px; }
+.top-bar .menu-item { margin: 0 10px; }
 .top-bar .bold { font-weight: 600; }
 
 /* ================================== */
 /* ===== 5. 하단 독 바 (Dock Bar) ===== */
 /* ================================== */
 .dock {
-    position: fixed; bottom: 0.8rem; left: 50%; transform: translateX(-50%); z-index: 100;
-    height: 5.5rem; background-color: rgba(255, 255, 255, 0.2);
+    position: fixed; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 100;
+    height: 55px; background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    border-radius: 1.8rem; border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.2);
+    border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     display: flex; justify-content: center; align-items: flex-end;
-    gap: 1.5rem; padding: 0.8rem;
+    gap: 15px; padding: 8px;
 }
 .dock-item {
-    width: 5.5rem; height: 5.5rem; font-size: 4rem;
+    width: 55px; height: 55px; font-size: 40px;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
-.dock-item:hover { transform: scale(1.3) translateY(-1rem); }
+.dock-item:hover { transform: scale(1.3) translateY(-10px); }
 
 /* ======================================== */
 /* ===== 6. 상호작용 및 애니메이션 ===== */
 /* ======================================== */
 .note-window-enlarged {
     position: fixed; top: 50%; left: 50%; z-index: 200;
-    width: 50rem; height: 20rem;
+    width: 500px; height: 200px;
     transform: translate(-50%, -50%); transform-origin: center;
     animation: none;
 }
 .note-window-enlarged:hover { transform: translate(-50%, -50%); }
 
+/* 오버레이 배경 (메모 확대 시) */
 .overlay {
     position: fixed; top: 0; left: 0; z-index: 150;
     width: 100%; height: 100%;
+    /*background-color: rgba(0, 0, 0, 0.6);*/
     backdrop-filter: blur(5px);
 }
-.note-hidden { opacity: 0; transform: translateY(2rem); }
+.note-hidden { opacity: 0; transform: translateY(20px); }
 @keyframes disappear {
   from { opacity: 1; transform: scale(1); }
   to { opacity: 0; transform: scale(0.95); }
@@ -163,263 +141,305 @@ body, html {
 /* ===== 7. 뮤직 플레이어 UI (추가) ===== */
 /* ======================================== */
 #music-player {
-    position: fixed; top: 2.8rem; bottom: 0; right: 0;
-    width: 32rem;
+    position: fixed; top: 28px; bottom: 0; right: 0;
+    width: 320px;
     background-color: rgba(240, 240, 240, 0.25);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-left: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: -0.5rem 0 2.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
     z-index: 90;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 1.8rem 0 0 1.8rem;
+    border-radius: 18px 0 0 18px;
     overflow: hidden;
 }
 #music-player.visible { transform: translateX(0); }
 
 .close-btn { 
-    position: absolute; top: 1rem; right: 1.5rem; 
-    background: none; border: none; font-size: 2.4rem; 
+    position: absolute; top: 10px; right: 15px; 
+    background: none; border: none; font-size: 24px; 
     cursor: pointer; opacity: 0.5; color: #222; 
 }
 .close-btn:hover { opacity: 1; }
 
-.wrapper {height: 100%; padding: 2rem; box-sizing: border-box;}
-.wrapper .info {text-align: center; margin: 2rem 0; color: #222;}
-.wrapper .info h1 {font-size: 2.4rem; margin: 0;}
-.wrapper .info p {font-size: 1.4rem; opacity: 0.8; margin: 0.5rem 0 0 0;}
+.wrapper {height: 100%; padding: 20px; box-sizing: border-box;}
+.wrapper .info {text-align: center; margin: 20px 0; color: #222;}
+.wrapper .info h1 {font-size: 24px; margin: 0;}
+.wrapper .info p {font-size: 14px; opacity: 0.8; margin: 5px 0 0 0;}
 
+
+/* (수정) 실제 콘텐츠를 감싸는 .player-content에 정렬 속성 적용 */
 .player-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #222;
 }
+
 .album-art { 
-    width: 20rem; height: 20rem; border-radius: 0.8rem; 
-    box-shadow: 0 0.4rem 1.5rem rgba(0, 0, 0, 0.2); 
-    margin-top: 2rem; 
+    width: 200px; height: 200px; border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    margin-top: 20px; 
     object-fit: cover;
 }
-.song-info { text-align: center; margin: 2.5rem 0; }
-.song-info .title { font-size: 2rem; font-weight: 600; margin: 0; }
-.song-info .artist { font-size: 1.6rem; opacity: 0.7; margin: 0.5rem 0 0 0; }
+.song-info { text-align: center; margin: 25px 0; }
+.song-info .title { font-size: 20px; font-weight: 600; margin: 0; }
+.song-info .artist { font-size: 16px; opacity: 0.7; margin: 5px 0 0 0; }
 
+/*.controls {display: flex; align-items: center; gap: 30px; font-size: 24px;}*/
 .controls { 
-    width: 20rem;
+    width: 200px; /* 앨범 아트 및 재생 바와 너비 통일 */
     display: flex; 
     align-items: center; 
-    justify-content: center;
-    gap: 3rem;
-    margin: 2rem 0;
+    justify-content: center; /* 중앙 정렬 */
+    gap: 30px;
+    margin: 20px 0;
 }
-.controls img { width: 2.4rem; height: 2.4rem; opacity: 0.8; box-shadow: none; }
+
+.controls img { width: 24px; height: 24px; opacity: 0.8; box-shadow: none; }
 .controls .play img { transform: scale(1.3); opacity: 1; }
 
-.track-time { width: 20rem; margin-top: auto; }
-.track { width: 100%; height: 0.6rem; background-color: rgba(0, 0, 0, 0.2); border-radius: 0.3rem; }
-.track .progress { width: 0%; height: 100%; background-color: #555; border-radius: 0.3rem; }
-.track-time .time { display: flex; justify-content: space-between; font-size: 1.2rem; color: #333; margin-top: 0.5rem; }
+.track-time { width: 200px; margin-top: auto; }
+.track { width: 100%; height: 6px; background-color: rgba(0, 0, 0, 0.2); border-radius: 3px; }
+.track .progress { width: 0%; height: 100%; background-color: #555; border-radius: 3px; }
+.track-time .time { display: flex; justify-content: space-between; font-size: 12px; color: #333; margin-top: 5px; }
 
 #music-player .subtitle {
-    width: 20rem;
-    max-height: 34rem;
+    width: 200px;
+    max-height: 340px;
     overflow-y: auto;
-    margin: 2rem 0;
-    padding: 1rem;
-    border-radius: 0.8rem;
-    font-size: 1.4rem;
+    margin: 20px 0;
+    padding: 10px;
+    /*background-color: rgba(0, 0, 0, 0.05);*/
+    border-radius: 8px;
+    font-size: 14px;
     color: #333;
     text-align: center;
     white-space: pre-line;
+    
+    /* 스크롤바 숨기기 */
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-#music-player .subtitle::-webkit-scrollbar { display: none; }
+#music-player .subtitle::-webkit-scrollbar {
+    display: none;
+}
 
 /* ========================================== */
 /* ===== 8. 가사 사이드바 (Lyrics Sidebar) ===== */
 /* ========================================== */
+
 #lyrics-sidebar {
-    position: fixed; top: 2.8rem; bottom: 0; right: 0;
-    width: 32rem;
-    background-color: rgba(240, 240, 240, 0.25);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    position: fixed;
+    top: 28px;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    background-color: rgba(240, 240, 240, 0.25); /* 배경색을 부모에 적용 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-left: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: -0.5rem 0 2.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
     z-index: 89;
+    
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 1.8rem 0 0 1.8rem;
+    
+    /* 1. 부모에 둥근 모서리와 overflow: hidden 적용 */
+    border-radius: 18px 0 0 18px;
     overflow: hidden;
+    
+    /* 2. 부모의 padding은 반드시 제거! */
+    /* padding: 20px; <-- 이 속성이 있으면 안 됩니다. */
 }
-#lyrics-sidebar.visible { transform: translateX(0); }
 
+#lyrics-sidebar.visible {
+    transform: translateX(0);
+}
+
+/* 닫기 버튼은 .close-btn 공용 스타일을 사용합니다. */
+
+/* 3. 자식인 .lyrics-content가 부모를 100% 채우도록 설정 */
 #lyrics-sidebar .lyrics-content {
-    width: 100%; height: 100%;
-    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    padding: 20px; /* 패딩을 부모 대신 자식에게 적용 */
     box-sizing: border-box;
+    
+    /* Flexbox로 내부 콘텐츠(제목, 가사) 정렬 */
     display: flex;
     flex-direction: column;
 }
+
 #lyrics-sidebar .lyrics-content h2 {
-    text-align: center; color: #222;
-    font-size: 2.4rem; margin-top: 2rem;
-    flex-shrink: 0;
+    text-align: center;
+    color: #222;
+    font-size: 24px;
+    margin-top: 20px;
+    flex-shrink: 0; /* 제목이 줄어들지 않도록 함 */
 }
+
 #lyrics-sidebar .lyrics-text {
-    flex-grow: 1;
-    overflow-y: auto;
-    font-size: 1.6rem;
+    flex-grow: 1; /* 제목을 제외한 남은 공간을 모두 차지 */
+    overflow-y: auto; /* 내용이 넘칠 때만 스크롤 */
+    font-size: 16px;
     line-height: 1.6;
     white-space: pre-line;
     text-align: center;
     color: #333;
-    margin-top: 2rem;
+    margin-top: 20px;
+
+    /* 스크롤바 숨기기 */
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-#lyrics-sidebar .lyrics-text::-webkit-scrollbar { display: none; }
+
+#lyrics-sidebar .lyrics-text::-webkit-scrollbar {
+    display: none;
+}
 
 /* ======================================== */
 /* ===== 9. 제작진 크레딧 모달 (추가) ===== */
 /* ======================================== */
+
 #credits-modal {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     backdrop-filter: blur(5px);
-    z-index: 250;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden;
+    z-index: 250; /* 가장 위에 표시 */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* 기본 숨김 */
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-#credits-modal.visible { opacity: 1; visibility: visible; }
+
+#credits-modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
 
 .credits-content {
     background-color: rgba(240, 240, 240, 0.4);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 1.8rem;
-    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
-    padding: 3rem;
-    width: 90%; max-width: 50rem; max-height: 70vh;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 70vh;
     position: relative;
     color: #222;
     overflow-y: auto;
     box-sizing: border-box;
+
+    /* 스크롤바 숨기기 */
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-.credits-content::-webkit-scrollbar { display: none; }
-.credits-content h2 { text-align: center; margin-top: 0; margin-bottom: 2.5rem; }
-.credits-list p { font-size: 1.6rem; line-height: 1.6; margin: 1rem 0; }
-.credits-list hr { border: none; height: 1px; background-color: rgba(0, 0, 0, 0.1); margin: 2rem 0; }
+.credits-content::-webkit-scrollbar {
+    display: none;
+}
+
+.credits-content h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.credits-list p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.credits-list hr {
+    border: none;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
 
 /* ======================================= */
 /* ===== 10. 파인더 이미지 모달 (추가) ===== */
 /* ======================================= */
+
 #finder-modal {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     backdrop-filter: blur(5px);
-    z-index: 260;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden;
+    z-index: 260; /* 크레딧 모달보다 위에 표시 */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* 기본 숨김 */
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-#finder-modal.visible { opacity: 1; visibility: visible; }
+
+#finder-modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
 
 .finder-content {
     background-color: rgba(240, 240, 240, 0.4);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 1.8rem;
-    box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.3);
-    padding: 3rem;
-    width: 90%; max-width: 70rem; max-height: 90vh;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 90%;
+    max-width: 700px; /* 이미지에 맞춰 최대 너비 조절 */
+    max-height: 90vh; /* 화면 높이에 맞춰 최대 높이 조절 */
     position: relative;
     color: #222;
-    overflow: hidden;
+    overflow: hidden; /* 이미지 스케일링 시 잘림 처리 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* 내부 콘텐츠 중앙 정렬 */
 }
-.finder-content .close-btn { position: absolute; top: 1.5rem; right: 2rem; z-index: 10; }
-.finder-title { text-align: center; margin-top: 0; margin-bottom: 2.5rem; }
+
+.finder-content .close-btn { /* 기존 .close-btn 스타일 재사용 */
+    position: absolute; top: 15px; right: 20px;
+    z-index: 10; /* 이미지 위에 뜨도록 */
+}
+
+.finder-title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
 .finder-image-wrapper {
-    flex-grow: 1; display: flex; align-items: center; justify-content: center;
-    width: 100%; height: 100%;
-    overflow: hidden;
+    flex-grow: 1; /* 남은 공간을 채움 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; /* 부모 높이 100% 채움 */
+    overflow: hidden; /* 이미지가 wrapper를 벗어나지 않도록 */
 }
+
 .finder-image {
-    max-width: 100%; max-height: 100%;
-    object-fit: contain;
-    border-radius: 0.8rem;
-    box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.2);
-}
-
-/* ======================================= */
-/* ===== 11. 반응형 레이아웃 (추가) ===== */
-/* ======================================= */
-
-/* 1. 넓은 노트북/데스크톱 화면 (1200px 이하) */
-@media (max-width: 100rem) { /* 1200px */
-    #notes-container {
-        grid-template-columns: repeat(3, 1fr); /* 4열 -> 3열 */
-        left: 2rem;
-        right: 2rem;
-    }
-}
-
-/* 2. 일반 노트북/태블릿 가로 (900px 이하) */
-@media (max-width: 90rem) { /* 900px */
-    #notes-container {
-        grid-template-columns: repeat(2, 1fr); /* 3열 -> 2열 */
-    }
-}
-
-/* 3. 태블릿 세로/모바일 (768px 이하) */
-@media (max-width: 76.8rem) { /* 768px */
-    
-    /* 상단 바 메뉴 숨기기 */
-    .top-bar .menu-item:not(.bold) {
-        display: none;
-    }
-
-    /* 메모 컨테이너 1열로 변경 */
-    #notes-container {
-        grid-template-columns: 1fr; /* 2열 -> 1열 */
-        left: 1rem;
-        right: 1rem;
-        padding: 4rem 1rem;
-    }
-    
-    /* 입력 폼 크기 조절 */
-    .form-logo {
-        width: 80vw; /* 50rem -> 80% */
-        height: auto;
-    }
-    .info-message-logo {
-        width: 70vw; /* 40rem -> 70% */
-        height: auto;
-    }
-    #memo-form {
-        width: 90%;
-    }
-    #memo-input {
-        width: 100%; /* 55rem -> 100% */
-    }
-
-    /* 사이드바 크기 조절 (화면 너비 차지) */
-    #music-player,
-    #lyrics-sidebar {
-        width: 90vw; /* 32rem -> 90% */
-        border-radius: 1.8rem 0 0 1.8rem;
-    }
-    
-    /* 모달 창 크기 조절 */
-    .credits-content,
-    .finder-content {
-        width: 90vw;
-        max-height: 80vh;
-    }
+    max-width: 100%; /* wrapper에 맞춰 이미지 크기 조절 */
+    max-height: 100%;
+    object-fit: contain; /* 이미지 비율 유지하며 wrapper에 맞춤 */
+    border-radius: 8px; /* 이미지도 약간 둥글게 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
